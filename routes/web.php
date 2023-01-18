@@ -13,11 +13,9 @@
 
 Auth::routes();
 
-
-Route::get('/{yearMonth?}', 'HomeController@index')->name('home');
-// Route::get('/{yearMonth}', 'HomeController@alterYearMonth')->name('alter.yearMonth');
-
+Route::get('/', 'HomeController@index')->name('home');
 // 医者
+Route::get('doctor/{yearMonth}', 'DoctorController@alterYearMonth')->name('alter.yearMonth');
 Route::resource('doctor', 'DoctorController');
 
 //パスワードリセット
