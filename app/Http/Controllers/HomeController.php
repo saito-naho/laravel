@@ -28,7 +28,7 @@ class HomeController extends Controller
     {
         $role = Auth::user()->role;
         if($role == 2){
-            return view('home');
+            return redirect()->route('admin.index');
         }
         elseif($role==1){
             return redirect()->route('doctor.index');
