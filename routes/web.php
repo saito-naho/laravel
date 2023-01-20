@@ -19,13 +19,20 @@ Route::get('doctor/{yearMonth}', 'DoctorController@alterYearMonth')->name('alter
 Route::resource('doctor', 'DoctorController');
 
 // 管理者
-Route::prefix('admin')->group(function () {
-    Route::name('admin.')->group(function () {
-         Route::get('/', 'AdminController@index')->name('index');
-         Route::get('/{yearMonth}', 'AdminController@alterYearMonth')->name('alter.yearMonth');
-         Route::get('/doctor/list', 'AdminController@getDoctorList')->name('doctorList');
-         Route::get('/patient/list', 'AdminController@getPatientList')->name('patientList');
-    });
+Route::group(['prefix'=>'admin', 'as'=>'admin.'], function () {
+    Route::get('/', 'AdminController@index')->name('index');
+    Route::get('/{yearMonth}', 'AdminController@alterYearMonth')->name('alter.yearMonth');
+    Route::get('/doctor/list', 'AdminController@getDoctorList')->name('doctorList');
+    Route::get('/patient/list', 'AdminController@getPatientList')->name('patientList');
+});
+
+// ユーザー情報
+Route::resource('user', 'UserController');
+
+// Ajax
+Route::group(['prefix'=>'ajax'], function () {
+    Route::get('/patient/{id}', 'AjaxController@getPatient');
+    
 });
 
 //パスワードリセット
