@@ -78,8 +78,28 @@ class AdminController extends Controller
         $doctors = Doctor::orderBy('id','desc')->get();
         return view('admin.doctorlist',['doctors' => $doctors]);
     }
-    public function getPatientList(){
-        $patients = User::where('role',0)->orderBy('id','desc')->get();
+
+
+    public function getPatientList(Request $request){
+        $search = $request->input('search');
+        if($search){
+            $name = $request->input('name');
+            $tel = $request->input('tel');
+
+            $patients = User::searchUsers($name,$tel)
+            ->join('user_info','users.id','=','user_info.user_id')
+            ->select(
+                'users.name',
+                'users.id as id'
+            )
+            ->where('users.role',0)
+            ->orderBy('users.id','desc')
+            ->get();
+        }else{
+            $patients = User::where('role',0)->orderBy('id','desc')->get();
+
+        }
+
         return view('admin.patientlist',['patients' => $patients]);
     }
 }

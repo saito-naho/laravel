@@ -53,4 +53,26 @@ class User extends Authenticatable
     {
         $this->notify(new ResetPassword($token));
     }
+
+    public function scopeSearchUsers($query,$name=null,$tel=null){
+
+            if($name){
+                // 全角スペースを半角に変換
+                $spaceConversion = mb_convert_kana($name, 's');
+    
+                // 単語を半角スペースで区切り、配列にする（例："山田 翔" → ["山田", "翔"]）
+                $wordArraySearched = preg_split('/[\s,]+/', $spaceConversion, -1, PREG_SPLIT_NO_EMPTY);
+    
+                // 単語をループで回し、ユーザーネームと部分一致するものがあれば、$queryとして保持される
+                foreach($wordArraySearched as $value) {
+                    $query->where('users.name', 'like', '%'.$value.'%');
+                }
+            }
+
+            if($tel){
+                $tel = str_replace('-', '', $tel);
+                $query->where('user_info.tel', 'like', '%'.$tel.'%');
+            }
+            return $query;
+    }
 }

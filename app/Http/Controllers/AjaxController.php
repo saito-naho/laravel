@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Doctor;
 
 class AjaxController extends Controller
 {
@@ -13,4 +14,12 @@ class AjaxController extends Controller
         ->first();
         return response()->json($user);
     }
+
+    public function getDoctor($id){
+        $doctor = Doctor::join('shifts','doctors.id','=','shifts.doctor_id')
+        ->where('doctors.id',$id)
+        ->first();
+        return response()->json($doctor);
+    }
+
 }

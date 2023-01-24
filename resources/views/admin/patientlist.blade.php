@@ -8,9 +8,25 @@
             </div>
             @endif
 
-            
             <div class="row justify-content-around mt-2">
                 <div class="col-md-4">
+                    {{-- 患者検索 --}}
+                    <form method="GET" action="{{ route('admin.patientList') }}">
+                        <input type="hidden" name="search" value="search">
+                        <div class="form-group row">
+                            <label for="name" class="col-sm-2 col-form-label">氏名</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="name" name="name" placeholder="氏名を入力してください。">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="tel" class="col-sm-2 col-form-label">電話番号</label>
+                            <div class="col-sm-10">
+                                <input type="text" class="form-control" id="tel" name="tel" placeholder="電話番号を入力してください。">
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary">患者検索</button>
+                    </form>
                     <div class='d-flex justify-content-between mt-3'>
                         <a class="d-inline-block" href="{{ route('admin.index') }}">
                             <button class='btn btn-danger'>予約一覧</button>
@@ -107,7 +123,7 @@
                 </div>
               </div>
             </div>
-          </div>
+        </div>
 @endsection
 
 

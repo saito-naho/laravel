@@ -32,6 +32,7 @@ Route::resource('user', 'UserController');
 // Ajax
 Route::group(['prefix'=>'ajax'], function () {
     Route::get('/patient/{id}', 'AjaxController@getPatient');
+    Route::get('/doctor/{id}', 'AjaxController@getDoctor');
     
 });
 
