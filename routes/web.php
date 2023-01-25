@@ -28,6 +28,7 @@ Route::group(['prefix'=>'admin', 'as'=>'admin.'], function () {
 
 // ユーザー情報
 Route::resource('user', 'UserController');
+Route::resource('reservation', 'ReservationController');
 
 // Ajax
 Route::group(['prefix'=>'ajax'], function () {

@@ -34,7 +34,7 @@ class HomeController extends Controller
             return redirect()->route('doctor.index');
         }
         else{
-            return view('home');
+            return redirect()->route('user.index');
         }
 
     }

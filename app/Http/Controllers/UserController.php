@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\UserInfo;
+use App\Reservation;
 
 class UserController extends Controller
 {
@@ -15,7 +17,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $id = Auth::id();
+
+        $reservationId = Reservation::select('id')->where('user_id',$id)->get();
+        // dd($reservationId);
+        return view('user.home',['reservationId'=>$reservationId]);
     }
 
     /**
@@ -25,7 +31,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('user.create');
     }
 
     /**
@@ -47,7 +53,10 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user = User::join('user_info','users.id','=','user_info.user_id')
+        ->where('users.id',$id)
+        ->first();
+        return view('user.showUserInfo',['user'=>$user]);
     }
 
     /**

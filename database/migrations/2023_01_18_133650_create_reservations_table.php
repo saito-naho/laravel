@@ -21,9 +21,9 @@ class CreateReservationsTable extends Migration
             $table->tinyInteger('stomachache');
             $table->string('time');
             $table->date('date_at');
-            $table->text('symptoms');
-            $table->text('request');
-            $table->text('comment');
+            $table->text('symptoms')->nullable();
+            $table->text('memo')->nullable();
+            $table->text('comment')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->foreign('doctor_id')->references('id')->on('doctors');
             $table->timestamps();
