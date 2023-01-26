@@ -25,16 +25,17 @@
                                 <input type="text" class="form-control" id="tel" name="tel" placeholder="電話番号を入力してください。">
                             </div>
                         </div>
-                        <button type="submit" class="btn btn-primary">患者検索</button>
+                        <button type="submit" class="btn btn-outline-dark btn-lg btn-block btn-sm">患者検索</button>
                     </form>
-                    <div class='d-flex justify-content-between mt-3'>
-                        <a class="d-inline-block" href="{{ route('admin.index') }}">
-                            <button class='btn btn-danger'>予約一覧</button>
+                    <div class='d-flex justify-content-around mt-3'>
+                        <a class="btn" href="{{ route('admin.index') }}" style="background-color:#5D99FF; color:white;">
+                            予約一覧
                         </a>
-                        <a class="d-inline-block"  href="{{ route('admin.doctorList') }}">
-                            <button class='btn btn-secondary'>医師一覧</button>
+                        <a class="btn"  href="{{ route('admin.doctorList') }}" style="background-color:#CC99FF; color:white;">
+                            医師一覧
                         </a>
                     </div>
+                    <br>
                     <div class="card">
                         <div class="card-header">
                             <div class='text-center'>患者一覧</div>
@@ -117,17 +118,16 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="modal-footer">
-                  {{-- 編集ボタン --}}
-                 
-                </div>
               </div>
             </div>
         </div>
 @endsection
 
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+
+{{-- 当初下記に記載していたが、JSに記述したためコメントアウト --}}
+{{-- 記述方法、箇所記録のために残したい --}}
+{{-- <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
 
 <script>
 $(function(){
@@ -190,4 +190,4 @@ $(function(){
 
   });
 });
-</script>
+</script> --}}

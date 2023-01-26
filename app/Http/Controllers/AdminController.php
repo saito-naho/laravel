@@ -65,7 +65,6 @@ class AdminController extends Controller
         ->orderBy('id','desc')
         ->paginate(30);
         
-
         return view('admin.home',[
             'lists'=>$lists,
             'today' => $today,
@@ -73,6 +72,7 @@ class AdminController extends Controller
             'nextday' => $nextday,
             'bool' => $bool,
         ]);
+
     }
     public function getDoctorList(){
         $doctors = Doctor::orderBy('id','desc')->get();

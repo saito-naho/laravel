@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Doctor;
-use App\Shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use App\Doctor;
+use App\User;
+use App\Shift;
+use App\Reservation;
 use Carbon\Carbon;
 
 class DoctorController extends Controller
@@ -56,8 +59,15 @@ class DoctorController extends Controller
         $diff = (new Carbon($nextday))->diffInDays($now);
         $bool = $diff<=7 ? true : false;
 
+        // 予約一覧取得
+        $lists = Reservation::with('user')
+        ->where('date_at','like',"%$today%")
+        ->orderBy('id','desc')
+        ->paginate(30);
+
         return view('doctor.home',[
-            'shift'=>$shift,
+            'lists' => $lists,
+            'shift' => $shift,
             'today' => $today,
             'preday' => $preday,
             'nextday' => $nextday,

@@ -2,6 +2,11 @@
 
 @section('content')
 <main class="py-4">
+    @if (session('status'))
+    <div class="alert alert-success" role="alert">
+        {{ session('status') }}
+    </div>
+    @endif
     <div class="col-md-5 mx-auto">
         <div class="card">
             <div class="card-header">
@@ -82,11 +87,10 @@
                             16:30-17:00
                             </label>
                         </div>
-                        <div class="d-flex row justify-content-around">
-                            <button type="submit" class="btn btn-primary w-25 mt-3">登録</button>
+                        <div class="d-flex row justify-content-center">
                             <a href="{{ route('doctor.index') }}">
-                                <button class="btn btn-secondary mt-3" style="color:white;">
-                                    Topへ戻る
+                                <button class="btn btn-primary mt-3" style="color:white;">
+                                    登録
                                 </button>
                             </a>
                         </div>
@@ -95,6 +99,11 @@
             </div>
         </div>
     </div>
+    <a href="{{ route('doctor.index') }}" class="d-flex row justify-content-center">
+        <button class="btn btn-secondary mt-3" style="color:white;">
+            Topへ戻る
+        </button>
+    </a>
 </main>
 
 @endsection

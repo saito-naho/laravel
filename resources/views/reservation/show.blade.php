@@ -4,16 +4,7 @@
         <main class="py-4">
             <div class="row justify-content-around mt-2">
                 <div class="col-md-4">
-                    <div class='d-flex justify-content-between mt-3'>
-                        <a class="d-inline-block" href="{{ route('reservation.edit',['reservation'=>$reserve->id]) }}">
-                            <button class='btn btn-danger'>予約変更</button>
-                        </a>
-                        <form class="d-inline-block"  action="{{ route('reservation.destroy',['reservation'=>$reserve->id]) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button class='btn btn-secondary' onclick="return confirm('キャンセルします。よろしいですか？')">キャンセル</button>
-                        </form>
-                    </div>
+                    
                     <div class="card">
                         <div class="card-header">
                             <div class='text-center'>予約情報</div>
@@ -28,11 +19,27 @@
                                     </tr>
                                     <tr>
                                         <th scope='col'>頭痛</th>
-                                        <th scope='col'>{{ $reserve->haedache }}</th>
+                                        @if($reserve->haedache == 3)
+                                            <th scope='col'>重い</th>
+                                        @elseif($reserve->haedache == 2)
+                                            <th scope='col'>中程度</th>
+                                        @elseif($reserve->haedache == 1)
+                                            <th scope='col'> 軽い</th>
+                                        @else
+                                            <th scope='col'>なし</th>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <th scope='col'>腹痛</th>
-                                        <th scope='col'>{{ $reserve->stomachache }}</th>
+                                        @if($reserve->stomachache == 3)
+                                            <th scope='col'>重い</th>
+                                        @elseif($reserve->stomachache == 2)
+                                            <th scope='col'>中程度</th>
+                                        @elseif($reserve->stomachache == 1)
+                                            <th scope='col'> 軽い</th>
+                                        @else
+                                            <th scope='col'>なし</th>
+                                        @endif
                                     </tr>
                                     <tr>
                                         <th scope='col'>その他症状</th>
@@ -48,6 +55,17 @@
                                 </tbody>
                             </table>
                         </div>
+                    </div>
+
+                    <div class='d-flex justify-content-around mt-3'>
+                        <a class="d-inline-block" href="{{ route('reservation.edit',['reservation'=>$reserve->id]) }}">
+                            <button class='btn btn-warning'>予約変更</button>
+                        </a>
+                        <form class="d-inline-block"  action="{{ route('reservation.destroy',['reservation'=>$reserve->id]) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button class='btn btn-danger' onclick="return confirm('キャンセルします。よろしいですか？')">キャンセル</button>
+                        </form>
                     </div>
                 </div>
 

@@ -11,14 +11,15 @@
             
             <div class="row justify-content-around mt-2">
                 <div class="col-md-4">
-                    <div class='d-flex justify-content-between mt-3'>
-                        <a class="d-inline-block" href="{{ route('admin.index') }}">
-                            <button class='btn btn-danger'>予約一覧</button>
+                    <div class='d-flex justify-content-around mt-3'>
+                        <a class="btn" href="{{ route('admin.index') }}" style="background-color:#5D99FF; color:white;">
+                            予約一覧
                         </a>
-                        <a class="d-inline-block"  href="{{ route('admin.patientList') }}">
-                            <button class='btn btn-secondary'>患者一覧</button>
+                        <a class="btn"  href="{{ route('admin.patientList') }}" style="background-color:#64F9C1; color:white;">
+                            患者一覧
                         </a>
                     </div>
+                    <br>
                     <div class="card">
                         <div class="card-header">
                             <div class='text-center'>医師一覧</div>

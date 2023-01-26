@@ -33,8 +33,7 @@ Route::resource('reservation', 'ReservationController');
 // Ajax
 Route::group(['prefix'=>'ajax'], function () {
     Route::get('/patient/{id}', 'AjaxController@getPatient');
-    Route::get('/doctor/{id}', 'AjaxController@getDoctor');
-    
+    Route::get('/doctor/{id}', 'AjaxController@getDoctor');    
 });
 
 //パスワードリセット

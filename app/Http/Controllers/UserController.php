@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use App\User;
 use App\UserInfo;
 use App\Reservation;
@@ -19,6 +20,10 @@ class UserController extends Controller
     {
         $id = Auth::id();
 
+        $user = UserInfo::where('user_id',$id)->first();
+        if(empty($user)){
+            return redirect()->route('user.create');
+        }
         $reservationId = Reservation::select('id')->where('user_id',$id)->get();
         // dd($reservationId);
         return view('user.home',['reservationId'=>$reservationId]);
@@ -32,6 +37,7 @@ class UserController extends Controller
     public function create()
     {
         return view('user.create');
+        return redirect()->route('home')->with('status', '登録が完了しました');
     }
 
     /**
@@ -42,7 +48,39 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        //バリデーション 
+        $request->validate([
+            'tel' => 'required',
+            'birth' => 'required',
+            'address' => 'required',
+            'imagefront' => 'required',
+            'imageback' => 'required',
+        ]);
+
+        // ディレクトリ名
+        $dir = 'images';
+
+        // アップロードされたファイル名を取得
+        $front = $request->file('imagefront')->getClientOriginalName();
+        $back = $request->file('imageback')->getClientOriginalName();
+
+        // sampleディレクトリに画像を保存
+        $request->file('imagefront')->storeAs('public/' . $dir, $front);
+        $request->file('imageback')->storeAs('public/' . $dir, $back);
+
+
+        // ファイル情報をDBに保存
+        $user = new UserInfo();
+        $user->imagefront = $front;
+        $user->imageback = $back;
+        $user->user_id = Auth::id();
+        $user->tel = $request->tel;
+        $user->birth = $request->birth;
+        $user->address = $request->address;
+
+        $user->save();
+
+        return redirect()->route('home')->with('status', '登録が完了しました');
     }
 
     /**
@@ -91,12 +129,29 @@ class UserController extends Controller
             'address' => 'required',
         ]);
 
+        // ディレクトリ名
+        $dir = 'images';
+
+        if(!empty($request->imagefront)){
+            $front = $request->file('imagefront')->getClientOriginalName();
+            $request->file('imagefront')->storeAs('public/' . $dir, $front);
+            $user->imagefront = $front;
+        }
+        if(!empty($request->imageback)){
+            $back = $request->file('imageback')->getClientOriginalName();
+            $request->file('imageback')->storeAs('public/' . $dir, $back);
+            $user->imageback = $back;
+        }
+
+
         $user->tel = $request->tel;
         $user->birth = $request->birth;
         $user->address = $request->address;
+        
+        
         $user->save();
 
-        return redirect()->route('home')->with('status', '情報更新が完了しました');
+        return redirect()->route('user.index')->with('status', '情報更新が完了しました');
     }
 
     /**
@@ -107,6 +162,8 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = DB::table('user_info')->where('user_id',$id)
+        ->delete();
+        return redirect()->route('user.index')->with('status', 'ユーザー情報を削除しました');
     }
 }

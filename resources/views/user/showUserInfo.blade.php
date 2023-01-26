@@ -2,16 +2,13 @@
 
 @section('content')
         <main class="py-4">
+            @if (session('status'))
+            <div class="alert alert-success" role="alert">
+                {{ session('status') }}
+            </div>
+            @endif
             <div class="row justify-content-around mt-2">
                 <div class="col-md-4">
-                    <div class='d-flex justify-content-between mt-3'>
-                        <a class="d-inline-block" href="{{ route('user.edit',['user'=>$user->id]) }}">
-                            <button class='btn btn-danger'>編集</button>
-                        </a>
-                        <a class="d-inline-block"  href="{{ route('user.destroy',['user'=>$user->id]) }}">
-                            <button class='btn btn-secondary'>削除</button>
-                        </a>
-                    </div>
                     <div class="card">
                         <div class="card-header">
                             <div class='text-center'>基本情報</div>
@@ -54,11 +51,21 @@
                                 </tbody>
                             </table>
                         </div>
+
                     </div>
+
+                    <div class='d-flex justify-content-around mt-3'>
+                        <a class="d-inline-block" href="{{ route('user.edit',['user'=>$user->user_id]) }}">
+                            <button class='btn btn-block' style="width:150%; background-color:#FFFF66;">編集</button>
+                        </a>
+                        <form class="d-inline-block"  action="{{ route('user.destroy',['user'=>$user->user_id]) }}" method="POST">
+                            @method('DELETE')
+                            @csrf
+                            <button class='btn btn-danger btn-block' style="width:150%;" onclick="return confirm('ユーザー情報を削除します。よろしいですか？')">削除</button>
+                        </form>
+                    </div>
+
                 </div>
-
-
-                
             </div>
         </main>
 @endsection

@@ -149,7 +149,7 @@ class ReservationController extends Controller
         ->first();
        
         if(empty($data)){
-            return redirect()->route('resevation.create')->with('status', '別の日時を選択してください。');
+            return redirect()->route('reservation.create')->with('status', '別の日時を選択してください。');
         }
         
         
