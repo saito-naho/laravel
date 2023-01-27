@@ -14,9 +14,12 @@
 Auth::routes();
 
 Route::get('/', 'HomeController@index')->name('home');
+
 // 医者
 Route::get('doctor/{yearMonth}', 'DoctorController@alterYearMonth')->name('alter.yearMonth');
 Route::resource('doctor', 'DoctorController');
+
+
 
 // 管理者
 Route::group(['prefix'=>'admin', 'as'=>'admin.'], function () {

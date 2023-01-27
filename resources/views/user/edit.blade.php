@@ -2,8 +2,22 @@
 
 @section('content')
     <main class="py-4">
+        @if (session('status'))
+        <div class="alert alert-success" role="alert">
+            {{ session('status') }}
+        </div>
+        @endif
         <div class="row justify-content-around mt-2">
             <div class="col-md-4">
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
                 <form action="{{ route('user.update',$user->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PUT')
                     @csrf

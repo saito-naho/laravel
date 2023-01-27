@@ -18,7 +18,7 @@
             @endif
             <div class="card-body">
                 <div class="card-body">
-                    <form action="{{ route('doctor.store') }}" method="post">
+                    <form action="{{ route('doctor.create') }}" method="POST">
                         @csrf
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" name="time1" id="time1">
