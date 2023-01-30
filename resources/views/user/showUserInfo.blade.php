@@ -51,20 +51,19 @@
                                 </tbody>
                             </table>
                         </div>
-
+                        <div class="card-footer">
+                            <div class="row justify-content-around mt-2">
+                                <a class="d-inline-block" href="{{ route('user.edit',['user'=>$user->user_id]) }}">
+                                    <button class="btn" style="background-color:#f9f95f; width:150px;">編集</button>
+                                </a>
+                                <form class="d-inline-block"  action="{{ route('user.destroy',['user'=>$user->user_id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn" style="background-color:#ff7171; width:150px;" onclick="return confirm('ユーザー情報を削除します。よろしいですか？')">削除</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class='d-flex justify-content-around mt-3'>
-                        <a class="d-inline-block" href="{{ route('user.edit',['user'=>$user->user_id]) }}">
-                            <button class='btn btn-block' style="width:150%; background-color:#FFFF66;">編集</button>
-                        </a>
-                        <form class="d-inline-block"  action="{{ route('user.destroy',['user'=>$user->user_id]) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button class='btn btn-danger btn-block' style="width:150%;" onclick="return confirm('ユーザー情報を削除します。よろしいですか？')">削除</button>
-                        </form>
-                    </div>
-
                 </div>
             </div>
         </main>

@@ -1,47 +1,55 @@
 @extends('layouts.app')
 
 @section('content')
-        <main class="py-4">
-            @if (session('status'))
-            <div class="alert alert-success">
-                {{ session('status') }}
-            </div>
-            @endif
-
-            <div class="row justify-content-around mt-2">
-                <div class="col-md-4">
-                    {{-- 患者検索 --}}
-                    <form method="GET" action="{{ route('admin.patientList') }}">
+    <main class="py-4">
+        @if (session('status'))
+        <div class="alert alert-success">
+            {{ session('status') }}
+        </div>
+        @endif
+            
+        <div class="col-md-4" style="padding-bottom: 100px;">
+            <div id="contener" style="width: 800px;">
+                {{-- 患者検索 --}}
+                <div id ="left" style="float:left; width:260px; padding-left:15px;">
+                    <form method="GET" action="{{ route('admin.patientList') }}" style="padding:5px;">
                         <input type="hidden" name="search" value="search">
-                        <div class="form-group row">
-                            <label for="name" class="col-sm-2 col-form-label">氏名</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="name" name="name" placeholder="氏名を入力してください。">
+                        <div class="form-group">
+                            <label for="name">
+                                氏名
+                            </label>
+                            <div class="col-sm-15">
+                                <input type="text" size="25" class="form-control" id="name" name="name" placeholder="氏名を入力してください"  style="background-color: rgb(227, 241, 244);">
                             </div>
                         </div>
-                        <div class="form-group row">
-                            <label for="tel" class="col-sm-2 col-form-label">電話番号</label>
-                            <div class="col-sm-10">
-                                <input type="text" class="form-control" id="tel" name="tel" placeholder="電話番号を入力してください。">
+                        <div class="form-group">
+                            <label for="tel">
+                                電話番号
+                            </label>
+                            <div class="col-sm-15">
+                                <input type="text" size="25" class="form-control" id="tel" name="tel" placeholder="電話番号を入力してください" style="background-color: rgb(227, 241, 244);">
                             </div>
                         </div>
                         <button type="submit" class="btn btn-outline-dark btn-lg btn-block btn-sm">患者検索</button>
                     </form>
+                </div>
+
+                <div id="right" style="float:right; width:500px; padding-left:10%;">
                     <div class='d-flex justify-content-around mt-3'>
-                        <a class="btn" href="{{ route('admin.index') }}" style="background-color:#5D99FF; color:white;">
+                        <a class="btn" href="{{ route('admin.index') }}" style="width:50%; background-color:#5D99FF; color:white;">
                             予約一覧
                         </a>
-                        <a class="btn"  href="{{ route('admin.doctorList') }}" style="background-color:#CC99FF; color:white;">
+                        <a class="btn" href="{{ route('admin.doctorList') }}" style="width:50%; background-color:#CC99FF; color:white;">
                             医師一覧
                         </a>
                     </div>
                     <br>
-                    <div class="card">
+                    <div class="card mb-3">
                         <div class="card-header">
                             <div class='text-center'>患者一覧</div>
                         </div>
                         
-                        <div class="card-body">
+                        <div class="card-body overflow-auto" style="width:100%; height:250px;">
                             <table class='table'>
                                 <thead>
                                     <tr>
@@ -55,7 +63,7 @@
                                     <tr>
                                         <th scope='col'>{{ $patient->name }}</th>
                                         <th scope='col'>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#testModal" data-user-id="{{ $patient->id }}">
+                                            <button type="button" class="badge rounded-pill bg-primary" data-toggle="modal" data-target="#testModal" data-user-id="{{ $patient->id }}">
                                                 詳細
                                             </button>
                                         </th>
@@ -66,61 +74,62 @@
                             </table>
                         </div>
                     </div>
+                    <br>
                 </div>
-
-
-                
-            </div>
-        </main>
-
-        {{-- モーダル --}}
-        <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h5 class="modal-title">詳細情報</h5>
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">×</span>
-                  </button>
-                </div>
-                <div class="modal-body">
-                    {{-- ここに入れる --}}
-                    <table class="table">
-                        <tbody>
-                            <tr>
-                                <th scope="row">名前</th>
-                                <td class="name"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">電話番号</th>
-                                <td class="tel"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">メールアドレス</th>
-                                <td class="email"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">住所</th>
-                                <td class="address"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">生年月日</th>
-                                <td class="birth"></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">保険証表面</th>
-                                <td class="imagefront" ></td>
-                            </tr>
-                            <tr>
-                                <th scope="row">保険証裏面</th>
-                                <td class="imageback"></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-              </div>
             </div>
         </div>
+    </main>
+
+
+
+    {{-- モーダル --}}
+    <div class="modal fade" id="testModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">詳細情報</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                {{-- ここに入れる --}}
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">名前</th>
+                            <td class="name"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">電話番号</th>
+                            <td class="tel"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">メールアドレス</th>
+                            <td class="email"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">住所</th>
+                            <td class="address"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">生年月日</th>
+                            <td class="birth"></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">保険証表面</th>
+                            <td class="imagefront" ></td>
+                        </tr>
+                        <tr>
+                            <th scope="row">保険証裏面</th>
+                            <td class="imageback"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 

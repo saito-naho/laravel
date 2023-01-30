@@ -12,10 +12,10 @@
             <div class="row justify-content-around mt-2">
                 <div class="col-md-4">
                     <div class='d-flex justify-content-around mt-3'>
-                        <a class="btn" href="{{ route('admin.doctorList') }}" style="background-color:#CC99FF; color:white;">
+                        <a class="btn" href="{{ route('admin.doctorList') }}" style="width:50%; background-color:#CC99FF; color:white;">
                             医師一覧
                         </a>
-                        <a class="btn" href="{{ route('admin.patientList') }}" style="background-color:#64F9C1; color:white;">
+                        <a class="btn" href="{{ route('admin.patientList') }}" style="width:50%; background-color:#f4e55e; color:white;">
                             患者一覧
                         </a>
                     </div>
@@ -34,7 +34,7 @@
                             <div class='text-center'>予約一覧</div>
                         </div>
                         
-                        <div class="card-body">
+                        <div class="card-body overflow-auto" style="width:100%; height:250px;">
                             <table class='table'>
                                 <thead>
                                     <tr>
@@ -50,13 +50,13 @@
                                         <th scope='col'>{{ $list->user->name }}</th>
                                         <th scope='col'>{{ $list->date_at }} {{ $list->time }}</th>
                                         <th scope='col'>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#testModal" data-user-id="{{ $list->user_id }}">
+                                            <button type="button" class="badge rounded-pill bg-primary" data-toggle="modal" data-target="#testModal" data-user-id="{{ $list->user_id }}">
                                                 詳細
                                             </button>
                                         </th>
                                     </tr>
                                     @endforeach
-                                    予約はありません。
+                                    予約が入ると表示されます。
                                     @endif
                                 </tbody>
                             </table>

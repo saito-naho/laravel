@@ -121,7 +121,7 @@ class DoctorController extends Controller
         $shift->time10 = !empty($request->time10) ? $request->time10 : 0;
         $shift->save();
 
-        return redirect()->route('home')->with('status', 'シフト登録が完了しました');
+        return redirect()->route('doctor.index')->with('status', 'シフト登録が完了しました');
 
     }
 

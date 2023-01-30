@@ -55,17 +55,18 @@
                                 </tbody>
                             </table>
                         </div>
-                    </div>
-
-                    <div class='d-flex justify-content-around mt-3'>
-                        <a class="d-inline-block" href="{{ route('reservation.edit',['reservation'=>$reserve->id]) }}">
-                            <button class='btn btn-warning'>予約変更</button>
-                        </a>
-                        <form class="d-inline-block"  action="{{ route('reservation.destroy',['reservation'=>$reserve->id]) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button class='btn btn-danger' onclick="return confirm('キャンセルします。よろしいですか？')">キャンセル</button>
-                        </form>
+                        <div class="card-footer">
+                            <div class='row justify-content-around mt-2'>
+                                <a class="d-inline-block" href="{{ route('reservation.edit',['reservation'=>$reserve->id]) }}">
+                                    <button class="btn" style="background-color:#f9f95f; width:150px;">予約変更</button>
+                                </a>
+                                <form class="d-inline-block"  action="{{ route('reservation.destroy',['reservation'=>$reserve->id]) }}" method="POST">
+                                    @method('DELETE')
+                                    @csrf
+                                    <button class="btn" style="background-color:#ff7171; width:150px;" onclick="return confirm('キャンセルします。よろしいですか？')">キャンセル</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
 

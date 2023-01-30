@@ -12,10 +12,10 @@
             <div class="row justify-content-around mt-2">
                 <div class="col-md-4">
                     <div class='d-flex justify-content-around mt-3'>
-                        <a class="btn" href="{{ route('admin.index') }}" style="background-color:#5D99FF; color:white;">
+                        <a class="btn" href="{{ route('admin.index') }}" style="width:50%; background-color:#5D99FF; color:white;">
                             予約一覧
                         </a>
-                        <a class="btn"  href="{{ route('admin.patientList') }}" style="background-color:#64F9C1; color:white;">
+                        <a class="btn"  href="{{ route('admin.patientList') }}" style="width:50%; background-color:#f4e55e; color:white;">
                             患者一覧
                         </a>
                     </div>
@@ -41,7 +41,7 @@
                                         <th scope='col'>{{ $doctor->user->name }}先生</th>
                                         <th scope='col'>{{ $doctor->specialty }}</th>
                                         <th scope='col'>
-                                            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#modal" data-doctor-id="{{ $doctor->id }}">
+                                            <button type="button" class="badge rounded-pill bg-primary" data-toggle="modal" data-target="#modal" data-doctor-id="{{ $doctor->id }}">
                                                 シフト
                                             </button>
                                         </th>

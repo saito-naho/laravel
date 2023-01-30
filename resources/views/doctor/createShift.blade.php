@@ -18,7 +18,7 @@
             @endif
             <div class="card-body">
                 <div class="card-body">
-                    <form action="{{ route('doctor.create') }}" method="POST">
+                    <form action="{{ route('doctor.store') }}" method="post">
                         @csrf
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" value="1" name="time1" id="time1">
@@ -81,14 +81,16 @@
                             </label>
                         </div>
                         <div>
-                            <button type="submit" class="btn btn-primary w-25 mt-3">登録</button>
-                            <a href="{{ route('doctor.index') }}">
-                                <button class="btn btn-secondary mt-3" style="color:white;">
-                                    Topへ戻る
-                                </button>
-                            </a>
+                            <button type="submit" class="btn btn-primary btn-block mt-3">登録</button>
                         </div>
                     </form>
+                    <div class="row justify-content-center mt-3">
+                        <a href="{{ route('doctor.index') }}">
+                            <button class="btn btn-sm btn-block mt-1" style="background-color:rgb(126, 219, 253); color:white;">
+                                Topへ戻る
+                            </button>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

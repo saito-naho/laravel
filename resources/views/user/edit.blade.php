@@ -23,15 +23,15 @@
                     @csrf
                     <div class="form-group">
                         <label for="tel">電話番号</label>
-                        <input type="text" name="tel" class="form-control" id="tel" value="{{ old('tel',$user->tel) }}">
+                        <input type="text" name="tel" class="form-control" id="tel" value="{{ old('tel',$user->tel) }}" style="background-color: rgb(232, 243, 246);">
                     </div>
                     <div class="form-group">
                         <label for="birth">生年月日</label>
-                        <input type="date" name="birth" class="form-control" id="birth" value="{{ old('birth',$user->birth) }}">
+                        <input type="date" name="birth" class="form-control" id="birth" value="{{ old('birth',$user->birth) }}" style="background-color: rgb(232, 243, 246);">
                     </div>
                     <div class="form-group">
                         <label for="address">住所</label>
-                        <input type="text" name="address" class="form-control" id="address" value="{{ old('address',$user->address) }}">
+                        <input type="text" name="address" class="form-control" id="address" value="{{ old('address',$user->address) }}" style="background-color: rgb(232, 243, 246);">
                     </div>
                     <div class="form-group">
                         <label for="imagefront">保険証表面</label>
