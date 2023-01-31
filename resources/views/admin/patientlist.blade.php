@@ -34,7 +34,7 @@
                     </form>
                 </div>
 
-                <div id="right" style="float:right; width:500px; padding-left:10%;">
+                <div id="right" style="float:right; width:500px; padding-left:10%; border-left-style: solid;">
                     <div class='d-flex justify-content-around mt-3'>
                         <a class="btn" href="{{ route('admin.index') }}" style="width:50%; background-color:#5D99FF; color:white;">
                             予約一覧

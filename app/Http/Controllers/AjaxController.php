@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\User;
 use App\Doctor;
 use App\Admin;
+use App\Reservation;
 
 class AjaxController extends Controller
 {

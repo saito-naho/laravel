@@ -32,7 +32,15 @@ class DoctorController extends Controller
         $diff = (new Carbon($nextday))->diffInDays($now);
         $bool = $diff<=7 ? true : false;
 
+        // 予約一覧取得
+        $lists = Reservation::with('user')
+        ->where('date_at','like',"%$today%")
+        ->where('doctor_id',Auth::id())
+        ->orderBy('id','desc')
+        ->paginate(30);
+
         return view('doctor.home',[
+            'lists' => $lists,
             'shift'=>$shift,
             'today' => $today,
             'preday' => $preday,
@@ -62,6 +70,7 @@ class DoctorController extends Controller
         // 予約一覧取得
         $lists = Reservation::with('user')
         ->where('date_at','like',"%$today%")
+        ->where('doctor_id',Auth::id())
         ->orderBy('id','desc')
         ->paginate(30);
 

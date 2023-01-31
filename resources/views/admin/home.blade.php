@@ -23,18 +23,23 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="row justify-content-around mt-3">
-                                <a href="{{ route('admin.alter.yearMonth', ['yearMonth' => $preday]) }}">＜＜前日</a>
-                                <div class='text-center'>{{ $today }}</div>
+                                <a href="{{ route('admin.alter.yearMonth', ['yearMonth' => $preday]) }}"><br>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">
+                                        前日◀◀
+                                    </button>
+                                </a>
+                                <div class='text-center'>予約一覧<br>{{ $today }}</div>
                                 @if($bool)
-                                <a href="{{ route('admin.alter.yearMonth', ['yearMonth' => $nextday]) }}">翌日＞＞</a>
-                                @else
-                                <p></p>
-                                @endif
+                                <a href="{{ route('admin.alter.yearMonth', ['yearMonth' => $nextday]) }}"><br>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">
+                                        ▶▶翌日
+                                    </button>
+                                </a>
+                                 @endif
                             </div>
-                            <div class='text-center'>予約一覧</div>
                         </div>
                         
-                        <div class="card-body overflow-auto" style="width:100%; height:250px;">
+                        <div class="card-body overflow-auto" style="width:100%; height:200px;">
                             <table class='table'>
                                 <thead>
                                     <tr>

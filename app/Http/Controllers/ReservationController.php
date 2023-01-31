@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\DB;
 use App\Reservation;
 use App\Doctor;
 use App\Shift;
+use App\User;
 
 class ReservationController extends Controller
 {
@@ -51,6 +52,25 @@ class ReservationController extends Controller
      */
     public function store(Request $request)
     {
+        // // dd($request->all());
+        // $request->validate([
+        //     'headache' => 'required',
+        //     'stomachache' => 'required',
+        //     'time' => 'required',
+        //     'date_at' => 'required',
+        // ]);
+        // $time = $this->times[$request->time];
+        // $data = DB::table('doctors')
+        // ->rightjoin('shifts','doctors.id','=','shifts.doctor_id')
+        // ->rightjoin('reservations','shifts.doctor_id','=','reservations.doctor_id')
+        // ->where('shifts.'.$request->time,1)
+        // ->where(function($query) use($request,$time) {
+        //     $query->where('reservations.date_at', '!=', $request->date_at)
+        //           ->Where('reservations.time', '!=', $time);
+        // })
+        // ->select('doctors.id')
+        // ->first();
+
         // dd($request->all());
         $request->validate([
             'headache' => 'required',
@@ -59,26 +79,55 @@ class ReservationController extends Controller
             'date_at' => 'required',
         ]);
         $time = $this->times[$request->time];
-        $data = DB::table('doctors')
-        ->rightjoin('shifts','doctors.id','=','shifts.doctor_id')
-        ->rightjoin('reservations','shifts.doctor_id','=','reservations.doctor_id')
-        ->where('shifts.'.$request->time,1)
-        ->where(function($query) use($request,$time) {
-            $query->where('reservations.date_at', '!=', $request->date_at)
-                  ->Where('reservations.time', '!=', $time);
-        })
-        ->select('doctors.id')
-        ->first();
-       
-        if(empty($data)){
-            return redirect()->route('resevation.create')->with('status', '別の日時を選択してください。');
+
+        $params =[
+                ':date_at'=>$request->date_at,
+                ':time'=>$time,
+        ];
+        $data = DB::table('reservations')
+        ->distinct()
+        ->select('reservations.doctor_id')
+        ->leftJoin('shifts','reservations.doctor_id','=','shifts.doctor_id')
+        ->where('reservations.date_at','!=',$request->date_at)
+        ->where('reservations.time','!=',$time)
+        ->where("shifts.{$request->time}",1)
+        ->get();
+        // dd($data);
+        $doctorId = '';
+        foreach($data as $v){
+            $id = Reservation::where('doctor_id',$v->doctor_id)
+            ->where('reservations.date_at','=',$request->date_at)
+            ->where('reservations.time','=',$time)
+            ->first();
+            if(empty($id)){
+                $doctorId = $v->doctor_id;
+                break;
+            }
         }
         
+        
+        // $data = DB::select("
+        // select reserve.id, reserve.date_at, reserve.time 
+        // from (
+        //     select `doctors`.`id` as `id`, `reservations`.`date_at` as `date_at`, `reservations`.`time` as `time` 
+        //     from `doctors` 
+        //     left join `shifts` 
+        //     on `doctors`.`id` = `shifts`.`doctor_id` 
+        //     left join `reservations` 
+        //     on `shifts`.`doctor_id` = `reservations`.`doctor_id` 
+        //     where `shifts`.`{$request->time}` = 1 
+        //     and ((`reservations`.`date_at` != ':date_at' and `reservations`.`time` != ':time') 
+        //     or (`reservations`.`date_at` is null and `reservations`.`time` is null))) as reserve 
+        //     where `reserve`.`date_at` is null and `reserve`.`time` is null limit 1;",$params);
+        // dd($doctorId);
+        if(empty($doctorId)){
+            return redirect()->route('reservation.create')->with('status', '別の日時を選択してください。');
+        }
         $reserve = new Reservation;
         
-        
         $reserve->user_id = Auth::id();
-        $reserve->doctor_id = $data->id;
+        // dd($data);
+        $reserve->doctor_id = $doctorId;
         $reserve->haedache = $request->headache;
         $reserve->stomachache = $request->stomachache;
         $reserve->symptoms = $request->symptoms;
@@ -89,6 +138,9 @@ class ReservationController extends Controller
 
         $reserve->save();
         return redirect()->route('user.index')->with('status', '予約を完了しました');
+       
+        
+
     }
 
     /**

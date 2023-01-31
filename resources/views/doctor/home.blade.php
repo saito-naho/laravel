@@ -9,15 +9,23 @@
         @endif
 
         <div id="contener" style="width:1200px;">
-            <div id ="left" style="float:left; width:450px; margin-left:250px">
+            <div id ="left" style="float:left; width:450px; margin-left:250px;">
                 <div class="card">
                     <div class="card-header">
                         <div class="row justify-content-center mt-3">
                             <div class='text-center'></div>
-                            <a href="{{ route('alter.yearMonth', ['yearMonth' => $preday]) }}">＜＜前日</a>
-                            <div class='text-center'>予約一覧<br>{{ $today }}</div>
+                                <a href="{{ route('alter.yearMonth', ['yearMonth' => $preday]) }}"><br>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">
+                                        前日◀◀
+                                    </button>
+                                </a>
+                            <div class='text-center' style="margin:3px;">予約一覧<br>{{ $today }}</div>
                             @if($bool)
-                            <a href="{{ route('alter.yearMonth', ['yearMonth' => $nextday]) }}">翌日＞＞</a>
+                                <a href="{{ route('alter.yearMonth', ['yearMonth' => $nextday]) }}"><br>
+                                    <button type="button" class="btn btn-outline-primary btn-sm">
+                                     ▶▶翌日
+                                    </button>
+                                </a>
                             @else
                             <p></p>
                             @endif
